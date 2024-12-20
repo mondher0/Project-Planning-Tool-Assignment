@@ -46,9 +46,7 @@ class ProjectSerializer(serializers.ModelSerializer):
         ]
 
     def create(self, validated_data):
-        print(validated_data)
         uploaded_images = validated_data.pop("uploaded_images", [])
-        print(uploaded_images)
         project = Project.objects.create(**validated_data)
 
         for image in uploaded_images:

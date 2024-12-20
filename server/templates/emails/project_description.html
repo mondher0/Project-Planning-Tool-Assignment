@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% load static %}
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css/email_styles.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>{{ title }}</h1>
+      </div>
+      <div class="content">
+        <p><strong>Description:</strong> {{ description }}</p>
+        <p><strong>Start Date:</strong> {{ start_date }}</p>
+        <p><strong>End Date:</strong> {{ end_date }}</p>
+        <p><strong>Priority:</strong> {{ priority }}</p>
+        <p><strong>Category:</strong> {{ category }}</p>
+        <p><strong>Status:</strong> {{ status }}</p>
+      </div>
+    </div>
+  </body>
+</html>

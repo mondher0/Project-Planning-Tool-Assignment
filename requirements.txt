@@ -5,3 +5,5 @@ requests
 django-cors-headers
 djangorestframework_simplejwt
 pillow
+reportlab
+dotenv

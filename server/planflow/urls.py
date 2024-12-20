@@ -2,6 +2,7 @@ from django.urls import path
 from .views import ProjectListCreateView, ProjectDetailView
 from .export_pdf_view import ProjectExportPDFView
 from .send_email_view import SendEmailView
+from .generate_summarize_view import GenerateSummarizeView
 
 urlpatterns = [
     path(
@@ -19,5 +20,10 @@ urlpatterns = [
         "<int:project_id>/send_email",
         SendEmailView.as_view(),
         name="send-email",
+    ),
+    path(
+        "generate_summarize",
+        GenerateSummarizeView.as_view(),
+        name="generate-summarize",
     ),
 ]

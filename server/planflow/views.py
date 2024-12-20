@@ -1,10 +1,18 @@
 from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Project
 from .serializers import ProjectSerializer
 from rest_framework.permissions import IsAuthenticated
+
+
+# Pagination class
+class ProjectPagination(PageNumberPagination):
+    page_size = 10  # Number of items per page
+    page_size_query_param = "page_size"
+    max_page_size = 100  # Maximum items per page
 
 
 class ProjectListCreateView(APIView):
@@ -15,8 +23,11 @@ class ProjectListCreateView(APIView):
         projects = Project.objects.filter(
             user=request.user
         )  # Only fetch projects for the authenticated user
-        serializer = ProjectSerializer(projects, many=True)
-        return Response(serializer.data)
+        paginator = ProjectPagination()
+        result_page = paginator.paginate_queryset(projects, request)
+
+        serializer = ProjectSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
     def post(self, request):
         serializer = ProjectSerializer(data=request.data)

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "planflow",
+    "user_auth",
 ]
 
 MIDDLEWARE = [
@@ -133,4 +134,4 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",  # Default permission is to require authentication
     ],
-}   
+}

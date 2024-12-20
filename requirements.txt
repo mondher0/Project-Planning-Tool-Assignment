@@ -6,4 +6,4 @@ django-cors-headers
 djangorestframework_simplejwt
 pillow
 reportlab
-dotenv
+python-dotenv

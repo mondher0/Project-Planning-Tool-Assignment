@@ -65,6 +65,9 @@ class ProjectSerializer(serializers.ModelSerializer):
         uploaded_images = validated_data.pop("uploaded_images", [])
         instance = super().update(instance, validated_data)
 
+        if not uploaded_images:
+            return instance
+
         # Remove old images
         instance.images.all().delete()
 

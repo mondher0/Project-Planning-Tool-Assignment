@@ -3,8 +3,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Project
-from .serializers import ProjectSerializer
+from ..models import Project
+from ..serializers import ProjectSerializer
 from rest_framework.permissions import IsAuthenticated
 
 

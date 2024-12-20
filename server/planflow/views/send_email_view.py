@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from .models import Project
-from .utils import send_project_email
+from ..models import Project
+from ..utils import send_project_email
 
 
 class SendEmailView(APIView):

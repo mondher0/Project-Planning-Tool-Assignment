@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import ProjectListCreateView, ProjectDetailView
-from .export_pdf_view import ProjectExportPDFView
-from .send_email_view import SendEmailView
-from .generate_summarize_view import GenerateSummarizeView
+from .views.views import ProjectListCreateView, ProjectDetailView
+from .views.export_pdf_view import ProjectExportPDFView
+from .views.send_email_view import SendEmailView
+from .views.generate_summarize_view import GenerateSummarizeView
 
 urlpatterns = [
     path(

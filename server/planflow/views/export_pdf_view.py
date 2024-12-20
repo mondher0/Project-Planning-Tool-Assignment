@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from .models import Project
+from ..models import Project
 from rest_framework.permissions import IsAuthenticated
-from .utils import (
+from ..utils import (
     generate_project_pdf,
 )
 

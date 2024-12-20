@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
     "planflow",
     "user_auth",
 ]
@@ -125,6 +126,18 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=60
+    ),  # Set lifetime of access token to 60 minutes (1 hour)
+    "REFRESH_TOKEN_LIFETIME": timedelta(
+        days=1
+    ),  # Set refresh token lifetime (optional, 1 day by default)
+    "BLACKLIST_AFTER_ROTATION": True,  # Enable token blacklisting after rotation
+}
 
 # Rest framework settings
 REST_FRAMEWORK = {

@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import AuthView
+from .views import AuthView, LogoutAllView
 
 urlpatterns = [
-    path(
-        "<str:action>", AuthView.as_view(), name="auth"
-    ),  # Handles both signup and login
+    path("signup", AuthView.as_view(), name="signup"),  # Sign up
+    path("login", AuthView.as_view(), name="login"),  # Log in
+    path("logout_all", LogoutAllView.as_view(), name="logout_all"),  # Logout all
 ]

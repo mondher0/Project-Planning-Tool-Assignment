@@ -1,10 +1,14 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.token_blacklist.models import (
+    OutstandingToken,
+    BlacklistedToken,
+)
 from .serializers import SignupSerializer, LoginSerializer
 
 
@@ -15,13 +19,13 @@ class AuthView(APIView):
 
     permission_classes = [AllowAny]
 
-    def post(self, request, action=None):
+    def post(self, request):
         """
-        Delegates to the appropriate method based on the `action` parameter.
+        Handle either signup or login based on the endpoint.
         """
-        if action == "signup":
+        if self.request.path.endswith("signup"):
             return self.signup(request)
-        elif action == "login":
+        elif self.request.path.endswith("login"):
             return self.login(request)
         return Response({"error": "Invalid action"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -74,3 +78,29 @@ class AuthView(APIView):
                 )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LogoutAllView(APIView):
+    """Logout All View"""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        """
+        Logout All - Blacklists all tokens for the authenticated user
+        """
+        user = request.user
+        try:
+            tokens = OutstandingToken.objects.filter(user=user)
+            for token in tokens:
+                # Blacklist each outstanding token
+                _, _ = BlacklistedToken.objects.get_or_create(token=token)
+            return Response(
+                {"message": "Successfully logged out from all devices."},
+                status=status.HTTP_200_OK,
+            )
+        except Exception as e:
+            return Response(
+                {"error": "An error occurred while logging out from all devices."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
